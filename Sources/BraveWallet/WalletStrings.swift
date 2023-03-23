@@ -3732,5 +3732,12 @@ extension Strings {
       value: "Use ENS Domain",
       comment: "Button title when requesting to do an ENS off chain lookup."
     )
+    public static let nftPageTitle = NSLocalizedString(
+      "wallet.nftPageTitle",
+      tableName: "BraveWallet",
+      bundle: .module,
+      value: "NFT",
+      comment: "The title of the tab that will display user's visible NFT assets."
+    )
   }
 }

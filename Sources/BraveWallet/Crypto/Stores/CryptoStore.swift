@@ -48,6 +48,7 @@ enum WebpageRequestResponse: Equatable {
 public class CryptoStore: ObservableObject {
   public let networkStore: NetworkStore
   public let portfolioStore: PortfolioStore
+  public let nftStore: NFTStore
   
   @Published var buySendSwapDestination: BuySendSwapDestination? {
     didSet {
@@ -122,6 +123,13 @@ public class CryptoStore: ObservableObject {
       swapService: swapService
     )
     self.portfolioStore = .init(
+      keyringService: keyringService,
+      rpcService: rpcService,
+      walletService: walletService,
+      assetRatioService: assetRatioService,
+      blockchainRegistry: blockchainRegistry
+    )
+    self.nftStore = .init(
       keyringService: keyringService,
       rpcService: rpcService,
       walletService: walletService,
