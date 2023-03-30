@@ -21,14 +21,13 @@ struct AssetIconView: View {
   var network: BraveWallet.NetworkInfo
   /// If we should show the native token logo on non-native assets
   var shouldShowNativeTokenIcon: Bool = false
-  var blockieShape: Blockie.Shape = .circle
   @ScaledMetric var length: CGFloat = 40
   var maxLength: CGFloat?
   @ScaledMetric var networkSymbolLength: CGFloat = 15
   var maxNetworkSymbolLength: CGFloat?
 
   private var fallbackMonogram: some View {
-    Blockie(address: token.contractAddress, shape: blockieShape)
+    Blockie(address: token.contractAddress)
       .overlay(
         Text(token.symbol.first?.uppercased() ?? "")
           .font(.system(size: length / 2, weight: .bold, design: .rounded))
@@ -134,8 +133,7 @@ struct NFTIconView: View {
   var url: URL?
   /// If we should show the native token logo on non-native assets
   var shouldShowNativeTokenIcon: Bool = false
-  /// Display the blockie/monogram icon in a specific shape
-  var blockieShape: Blockie.Shape = .circle
+  
   @ScaledMetric var length: CGFloat = 40
   @ScaledMetric var tokenLogoLength: CGFloat = 15
   
@@ -150,7 +148,7 @@ struct NFTIconView: View {
     if shouldShowNativeTokenIcon, !network.isNativeAsset(token), let image = networkNativeTokenLogo {
       Image(uiImage: image)
         .resizable()
-        .frame(width: tokenLogoLength, height: tokenLogoLength)
+        .frame(width: 15, height: 15)
     }
   }
   
@@ -160,7 +158,6 @@ struct NFTIconView: View {
         token: token,
         network: network,
         shouldShowNativeTokenIcon: shouldShowNativeTokenIcon,
-        blockieShape: blockieShape,
         length: length
       )
     }
