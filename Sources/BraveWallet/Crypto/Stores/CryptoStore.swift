@@ -127,7 +127,8 @@ public class CryptoStore: ObservableObject {
       rpcService: rpcService,
       walletService: walletService,
       assetRatioService: assetRatioService,
-      blockchainRegistry: blockchainRegistry
+      blockchainRegistry: blockchainRegistry,
+      ipfs: ipfsApi
     )
     self.nftStore = .init(
       keyringService: keyringService,

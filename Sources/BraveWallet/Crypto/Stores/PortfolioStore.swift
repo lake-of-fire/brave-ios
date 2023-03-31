@@ -84,7 +84,7 @@ public class PortfolioStore: ObservableObject {
     rpcService: self.rpcService,
     keyringService: self.keyringService,
     assetRatioService: self.assetRatioService,
-    ipfsApi: nil
+    ipfsApi: self.ipfs
   )
   
   let currencyFormatter: NumberFormatter = .usdCurrencyFormatter
@@ -103,19 +103,22 @@ public class PortfolioStore: ObservableObject {
   private let walletService: BraveWalletBraveWalletService
   private let assetRatioService: BraveWalletAssetRatioService
   private let blockchainRegistry: BraveWalletBlockchainRegistry
+  private let ipfs: BraveCore.IpfsAPI?
 
   public init(
     keyringService: BraveWalletKeyringService,
     rpcService: BraveWalletJsonRpcService,
     walletService: BraveWalletBraveWalletService,
     assetRatioService: BraveWalletAssetRatioService,
-    blockchainRegistry: BraveWalletBlockchainRegistry
+    blockchainRegistry: BraveWalletBlockchainRegistry,
+    ipfs: BraveCore.IpfsAPI?
   ) {
     self.keyringService = keyringService
     self.rpcService = rpcService
     self.walletService = walletService
     self.assetRatioService = assetRatioService
     self.blockchainRegistry = blockchainRegistry
+    self.ipfs = ipfs
 
     self.rpcService.add(self)
     self.keyringService.add(self)
