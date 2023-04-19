@@ -8,7 +8,6 @@ import BraveShared
 import Growth
 import Data
 import BraveCore
-import GameController
 import Shared
 
 extension BrowserViewController {
@@ -104,32 +103,6 @@ extension BrowserViewController {
     UmaHistogramBoolean("Brave.Accessibility.DisplayZoomEnabled", isDisplayZoomEnabled)
   }
   
-  func recordAccessibilityPhysicalKeyboardUsageP3A() {
-    // Accessibility Q2 New P3A iOS - Have you used a physical keyboard in the past 7 days?
-    let usage = P3AFeatureUsage.physicalKeyboardUsed
-    
-    let isKeyboardConnected = GCKeyboard.coalesced != nil
-
-    if isKeyboardConnected {
-      usage.recordUsage()
-    } else {
-      usage.recordHistogram()
-    }
-  }
-  
-  func recordAccessibilityPhysicalMouseUsageP3A() {
-    // Accessility Q3 New P3A iOS - Have you used a physical mouse in the past 7 days?
-    let usage = P3AFeatureUsage.physicalMouseUsed
-    
-    let isMouseConnected = !GCMouse.mice().isEmpty
-
-    if isMouseConnected {
-      usage.recordUsage()
-    } else {
-      usage.recordHistogram()
-    }
-  }
-  
   func recordAccessibilityDocumentsDirectorySizeP3A() {
     // Accessibility Q4 New P3A iOS - Documents directory size
     func fetchDocumentsAndDataSize() -> Int? {
@@ -199,12 +172,6 @@ extension P3AFeatureUsage {
     histogram: "Brave.VPN.LastUsageTime",
     returningUserHistogram: "Brave.VPN.NewUserReturning"
   )
-  fileprivate static var physicalKeyboardUsed: Self { .init(
-    name: "physical-keyboard",
-    histogram: "Brave.Accessibility.PhysicalKeyboardUsage") }
-  fileprivate static var physicalMouseUsed: Self { .init(
-    name: "physical-mouse",
-    histogram: "Brave.Accessibility.PhysicalMouseUsage") }
 }
 
 extension P3ATimedStorage where Value == Int {
