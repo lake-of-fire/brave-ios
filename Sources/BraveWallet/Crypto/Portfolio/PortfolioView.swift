@@ -203,12 +203,12 @@ struct PortfolioView: View {
         destination: {
           if let token = selectedToken {
             AssetDetailView(
-              assetDetailStore: cryptoStore.assetDetailStore(for: token),
+              assetDetailStore: cryptoStore.assetDetailStore(for: .blockchainToken(token)),
               keyringStore: keyringStore,
               networkStore: cryptoStore.networkStore
             )
             .onDisappear {
-              cryptoStore.closeAssetDetailStore(for: token)
+              cryptoStore.closeAssetDetailStore(for: .blockchainToken(token))
             }
           }
         },
@@ -236,12 +236,12 @@ struct PortfolioView: View {
               }
             } else {
               AssetDetailView(
-                assetDetailStore: cryptoStore.assetDetailStore(for: nftViewModel.token),
+                assetDetailStore: cryptoStore.assetDetailStore(for: .blockchainToken(nftViewModel.token)),
                 keyringStore: keyringStore,
                 networkStore: cryptoStore.networkStore
               )
               .onDisappear {
-                cryptoStore.closeAssetDetailStore(for: nftViewModel.token)
+                cryptoStore.closeAssetDetailStore(for: .blockchainToken(nftViewModel.token))
               }
             }
           }
