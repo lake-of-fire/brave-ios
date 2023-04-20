@@ -1,4 +1,4 @@
-// swift-tools-version: 5.6
+// swift-tools-version: 5.7
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -32,8 +32,10 @@ var package = Package(
     .library(name: "RuntimeWarnings", targets: ["RuntimeWarnings"]),
     .library(name: "CodableHelpers", targets: ["CodableHelpers"]),
     .library(name: "GRDWireGuardKit", targets: ["GRDWireGuardKit"]),
+    .executable(name: "LeoAssetCatalogGenerator", targets: ["LeoAssetCatalogGenerator"]),
     .plugin(name: "IntentBuilderPlugin", targets: ["IntentBuilderPlugin"]),
-    .plugin(name: "LoggerPlugin", targets: ["LoggerPlugin"])
+    .plugin(name: "LoggerPlugin", targets: ["LoggerPlugin"]),
+    .plugin(name: "LeoAssetsPlugin", targets: ["LeoAssetsPlugin"])
   ],
   dependencies: [
     .package(url: "https://github.com/weichsel/ZIPFoundation", from: "0.9.15"),
@@ -111,7 +113,7 @@ var package = Package(
       ],
       plugins: ["LoggerPlugin"]
     ),
-    .target(name: "DesignSystem"),
+    .target(name: "DesignSystem", plugins: ["LeoAssetsPlugin"]),
     .binaryTarget(name: "BraveCore", path: "node_modules/brave-core-ios/BraveCore.xcframework"),
     .binaryTarget(name: "MaterialComponents", path: "node_modules/brave-core-ios/MaterialComponents.xcframework"),
     .binaryTarget(name: "GRDWireGuardKit", path: "ThirdParty/GRDWireGuardKit/GRDWireGuardKit.xcframework"),
@@ -303,6 +305,8 @@ var package = Package(
     .testTarget(name: "GrowthTests", dependencies: ["Growth", "Shared", "BraveShared", "BraveVPN"]),
     .plugin(name: "IntentBuilderPlugin", capability: .buildTool()),
     .plugin(name: "LoggerPlugin", capability: .buildTool()),
+    .plugin(name: "LeoAssetsPlugin", capability: .buildTool(), dependencies: ["LeoAssetCatalogGenerator"]),
+    .executableTarget(name: "LeoAssetCatalogGenerator")
   ],
   cxxLanguageStandard: .cxx17
 )
